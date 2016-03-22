@@ -1,10 +1,31 @@
 window.onload = init();
 var cssRule;
+var currentValue = 0;
+var currentUserAmount = 0;
 
 /**
  * Execute when DOM loads
  */
 function init()
+{
+    var windowLocation = window.location.href;
+
+    //Prepare seperate files.... Errors are being caused by this now
+    if(windowLocation == "http://localhost/Phaenna/currentMood.html")
+    {
+        getDbValuesOnload();
+    }
+    else if(windowLocation == "http://localhost/Phaenna/myMood.html")
+    {
+        getButtonOptions();
+    }
+}
+
+/**
+ * Put the buttons in variables if you're on the myMood page.
+ *
+ */
+function getButtonOptions()
 {
     var unh = document.getElementById('btn_unhappy');
     var neu = document.getElementById('btn_neutral');
@@ -16,16 +37,113 @@ function init()
 }
 
 /**
+ * Get database values for immersivebackground() on page load
+ *
+ * @returns {boolean}
+ */
+function getDbValuesOnload()
+{
+    //Check food magazine for a generic ajaxhandler.
+    var happiness = 0;
+    $.ajax({
+        url:'php/getDBValues.php',
+        data: {
+            happiness: happiness
+        },
+        success: function (data)
+        {
+            immersiveBackground(data.happiness);
+            createSoundcloudWidget(data.happiness);
+        },
+        error: function ()
+        {
+            drawError();
+        }
+    });
+    return false;
+}
+
+/**
  * Generic click handler.
  *
  * @param e
  */
-
 function btnClickHandler(e)
 {
     var btn = e.target.id;
 
-    immersiveBackground(btn);
+    //immersiveBackground(btn);
+    btnValue(btn);
+}
+
+/**
+ * add a value to the button that was clicked
+ *
+ * @param element
+ */
+function btnValue(element)
+{
+    var btnValue;
+    switch(element)
+    {
+        case "btn_unhappy":
+            btnValue = 0.1;
+            break;
+        case "btn_neutral":
+            btnValue = 0.5;
+            break;
+        case "btn_happy":
+            btnValue = 0.9;
+            break;
+        default:
+            btnValue = 0.5;
+            break;
+    }
+
+    btnAddValue(btnValue);
+}
+
+/**
+ * each click adds value given at btnValue()
+ *
+ * @param value
+ */
+function btnAddValue(value)
+{
+    totalValue = currentValue + value;
+    totalUserAmount = currentUserAmount + 1;
+
+    //currentValue = totalValue;
+    //currentUserAmount = totalUserAmount;
+
+    ajaxHandler(totalValue, totalUserAmount);
+}
+
+/**
+ * ajax handler in order to translate javascript variables to php for the database
+ *
+ * @param value
+ * @param userAmount
+ */
+function ajaxHandler(value, userAmount)
+{
+    $.ajax({
+        url: "php/sendDataToDB.php", // current page
+        type: 'POST',
+        data: {
+            value: value, // of if writing a JS variable remove the quotes.
+            userAmount: userAmount,
+            happiness: value / userAmount
+        },
+        success: function(data) {
+            //console.log(data.happiness);
+            immersiveBackground(data.happiness);
+        },
+        error: function()
+        {
+            drawError();
+        }
+    });
 }
 
 /**
@@ -33,24 +151,24 @@ function btnClickHandler(e)
  *
  * @param element
  */
-function immersiveBackground(element)
+function immersiveBackground(mood)
 {
     getRule();
 
     var color;
     var color2;
 
-    switch(element)
+    switch(mood)
     {
-        case "btn_unhappy":
+        case "unhappy":
             color = "#A9E2F3";
             color2 = "#0080FF";
             break;
-        case "btn_neutral":
+        case "neutral":
             color = "#A9F5BC";
             color2 = "#81F781";
             break;
-        case "btn_happy":
+        case "happy":
             color = "#F4FA58";
             color2 ="#BEF781";
             break;
@@ -107,9 +225,17 @@ function getRule()
     }
 }
 
+/**
+ * Catch Error from getDbValues() & ajaxHandler()
+ *
+ */
+function drawError()
+{
+    var container = document.getElementById("errorOutput");
+    container.innerHTML = "There has been an error, please try again!";
+}
 
-
-
+//IGNORE THE LINES BELOW........
 
 
 
