@@ -1,0 +1,20 @@
+/* Start Immersive background*/
+.pulsate {-webkit-animation: pulse 5s infinite;animation: pulse 5s infinite;}
+
+@-webkit-keyframes pulse {
+    0% {background: #58FAAC}
+    50% {background: #01DF74}
+    100% {background: #58FAAC}
+}
+
+@keyframes pulse {
+    0% {background: #58FAAC}
+    50% {background: #01DF74}
+    100% {background: #58FAAC}
+}
+
+.container {
+    -webkit-animation: pulse 10s infinite;
+    animation: pulse 10s infinite;
+}
+/*End immersive background*/
