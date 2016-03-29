@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Phaenna Prototype 2.0</title>
+    <!--<link rel="stylesheet" href="css/master.css">-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a href="index.html"><button>Home</button></a>
+<a href="currentMood.html"><button>Current Mood</button></a>
+
+<div id = "errorOutput"></div>
+
+<div id="container">
+
+    <form oninput="amount.value=rangeMoodInput.value">
+        <input type="range" id = "rangeMoodInput" name="rangeMoodInput" min="0" max="100">
+        <!--<input type="range" id="rangeInput" name="rangeInput" min="0" max="100">-->
+        Result:
+            <output id = "rangeMoodInputText" name="amount" for="rangeMoodInput">50</output>
+        % happy
+    </form>
+
+    <button id = "btn_unhappy" name = "btn_unhappy">Unhappy</button>
+    <button id = "btn_neutral" name = "btn_neutral">Neutral</button>
+    <button id = "btn_happy" name = "btn_happy">Happy</button>
+
+    <button id = "btn_submitRange">Submit Range Value</button>
+
+</div>
+
+<script type = "text/javascript" src = "js/jquery-1.12.1.min.js"></script>
+<script type = "text/javascript" src = "js/uploadData.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>
+
