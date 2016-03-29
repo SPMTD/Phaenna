@@ -1,0 +1,20 @@
+input {
+    background: linear-gradient(to right, red, blue 40%, green);
+    border: solid 2px #444;
+    border-radius: 8px;
+    height: 10px;
+    width: 50%;
+
+    -webkit-appearance: none;
+}
+
+input::-webkit-slider-thumb {
+    background-color: #469948;
+    border: solid 2px #dedede;
+    border-radius: 0;
+
+    height: 20px;
+    width: 25px;
+
+    -webkit-appearance: none;
+}
