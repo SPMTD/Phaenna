@@ -1,47 +1,146 @@
 window.onload = init();
 var cssRule;
-var previousColor1;
-var previousColor2;
+var currentValue = 0;
+var currentUserAmount = 0;
 
 /**
  * Execute when DOM loads
  */
 function init()
 {
-    ajaxRequest(immersiveBackground);
+    getDbValuesOnload();
+
 }
 
 /**
- * Generic AJAX handler (to prevent $.ajax everywhere)
+ * Get database values for immersivebackground() on page load
  *
- * @param ajaxSuccessHandler
- * @param data
+ * @returns {boolean}
  */
-function ajaxRequest(ajaxSuccessHandler, data)
+function getDbValuesOnload()
 {
+    //Check food magazine for a generic ajaxhandler.
     var happiness = 0;
-
-    //Default ajax parameters
-    var parameters = {
-        dataType: 'json',
-        url: 'php/getDBValues.php',
-        type: 'POST',
+    console.log("YUP");
+    $.ajax({
+        url:'php/getDBValues.php',
         data: {
             happiness: happiness
+        },
+        success: function (data)
+        {
+            console.log("SUCCES");
+            writeHappinessLevel(data.happiness);
+        },
+        error: function ()
+        {
+            drawError();
+        }
+    });
+    return false;
+}
+
+/**
+ * Generic click handler.
+ *
+ * @param e
+ */
+function btnClickHandler(e)
+{
+    var btn = e.target.id;
+
+    if(btn == "btn_submitRange")
+    {
+        var slider = document.getElementById('rangeMoodInput');
+
+        btnAddValue(slider.value);
+    }
+    else
+    {
+        btnValue(btn);
+    }
+}
+
+/**
+ * add a value to the button that was clicked and adjust slider
+ *
+ * @param element
+ */
+function btnValue(element)
+{
+    var btnValue;
+    switch(element)
+    {
+        case "btn_unhappy":
+            btnValue = 0.1;
+            break;
+        case "btn_neutral":
+            btnValue = 0.5;
+            break;
+        case "btn_happy":
+            btnValue = 0.9;
+            break;
+        default:
+            btnValue = 0.5;
+            break;
+    }
+
+
+    var range = document.getElementById('rangeMoodInput');
+    var rangeText = document.getElementById('rangeMoodInputText');
+
+    range.value = btnValue * 100;
+    rangeText.value = range.value;
+}
+
+/**
+ * each click adds value given at btnValue()
+ *
+ * @param value
+ */
+function btnAddValue(value)
+{
+    var fixedValue = value / 100;
+    var totalValue = currentValue + fixedValue;
+    var totalUserAmount = currentUserAmount + 1;
+
+    //currentValue = totalValue;
+    //currentUserAmount = totalUserAmount;
+
+    ajaxHandler(totalValue, totalUserAmount);
+}
+
+/**
+ * ajax handler in order to translate javascript variables to php for the database
+ *
+ * @param value
+ * @param userAmount
+ */
+function ajaxHandler(value, userAmount)
+{
+    $.ajax({
+        url: "php/sendDataToDB.php", // current page
+        type: 'POST',
+        data: {
+            value: value, // of if writing a JS variable remove the quotes.
+            userAmount: userAmount,
+            happiness: value / userAmount
+        },
+        success: function(data) {
+            //console.log(data.happiness);
+            immersiveBackground(data.happiness);
+            writeHappinessLevel(data.happiness);
+            //if(x == false)
+            //{
+            //    //deleteSoundcloudWidget
+            //    //createSoundcloudWidget(data.happiness);
+            //}
         },
         error: function()
         {
             drawError();
         }
-    };
-
-    //If data is passed, add it to the AJAX parameters
-    if (data) {
-        parameters.data = data;
-    }
-
-    //Actual AJAX call (only jQuery needed!)
-    $.ajax(parameters).done(ajaxSuccessHandler, parameters.data.happiness);
+    });
 }
 
 /**
@@ -55,9 +154,8 @@ function immersiveBackground(mood)
 
     var color;
     var color2;
-    var fixedMood = mood.happiness;
 
-    switch(fixedMood)
+    switch(mood)
     {
         case "unhappy":
             color = "#A9E2F3";
@@ -76,7 +174,7 @@ function immersiveBackground(mood)
             color2 = "";
     }
 
-    if(color != "" && color2 != "")
+    if(color != "" || color2 != "")
     {
         pulseColors(color, color2)
     }
@@ -92,26 +190,15 @@ function pulseColors(color1, color2)
 {
     console.log(color1, color2);
 
-    if(previousColor1 == color1 || previousColor2 == color2)
-    {
-        console.log("Nothing has changed... Waiting...");
-    }
-    else
-    {
-        previousColor1 = color1;
-        previousColor2 = color2;
+    cssRule.deleteRule("0%");
+    cssRule.deleteRule("50%");
+    cssRule.deleteRule("100%");
+    cssRule.appendRule("0% {background:" + color1 + "}");
+    cssRule.appendRule("50% {background:" + color2 + "}");
+    cssRule.appendRule("100% {background:" + color1 + "}");
 
-        cssRule.deleteRule("0%");
-        cssRule.deleteRule("50%");
-        cssRule.deleteRule("100%");
-        cssRule.appendRule("0% {background:" + color1 + "}");
-        cssRule.appendRule("50% {background:" + color2 + "}");
-        cssRule.appendRule("100% {background:" + color1 + "}");
-
-        ajaxRequest(soundcloudApi);
-    }
     //Check value from DB every 10 seconds
-    setInterval(ajaxRequest(immersiveBackground), (10 * 1000));
+    setInterval(ajaxHandler(0, 0), (10 * 1000));
 }
 
 /**
@@ -147,4 +234,36 @@ function drawError()
     var container = document.getElementById("errorOutput");
     container.innerHTML = "There has been an error, please try again!";
 }
+
+function writeHappinessLevel(happiness)
+{
+    var cont = document.getElementById("currentMood");
+
+    console.log("YOU GOT AT WRITE SHIT");
+    var img = showImage(happiness);
+    cont.appendChild(img);
+
+}
+
+function showImage(happiness){
+    var img = document.createElement("img");
+    if(happiness == "happy"){
+        console.log("HAPPY");
+        img.src = "http://emojipedia-us.s3.amazonaws.com/cache/a0/38/a038e6d3f342253c5ea3c057fe37b41f.png";
+        img.alt = "BEING FUCKING HAPPY";
+    }
+    else if(happiness == "neutral") {
+        console.log("NEUTRAL");
+        img.src = "http://www.charbase.com/images/glyph/128528";
+        img.alt = "BEING FUCKING NEUTRAL";
+    }
+    else {
+        console.log("UNHAPPY");
+        img.src = "https://invigs365.files.wordpress.com/2014/08/sad-emoji.png";
+        img.alt = "BEING FUCKING UNHAPPY";
+    }
+    return img;
+}
+
+
 
