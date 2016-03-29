@@ -8,32 +8,8 @@ var currentUserAmount = 0;
  */
 function init()
 {
-    var windowLocation = window.location.href;
+    getDbValuesOnload();
 
-    //Prepare seperate files.... Errors are being caused by this now
-    if(windowLocation == "http://localhost/Phaenna/currentMood.html")
-    {
-        getDbValuesOnload();
-    }
-    else if(windowLocation == "http://localhost/Phaenna/myMood.html")
-    {
-        getButtonOptions();
-    }
-}
-
-/**
- * Put the buttons in variables if you're on the myMood page.
- *
- */
-function getButtonOptions()
-{
-    var unh = document.getElementById('btn_unhappy');
-    var neu = document.getElementById('btn_neutral');
-    var hap = document.getElementById('btn_happy');
-
-    unh.addEventListener('click', btnClickHandler);
-    neu.addEventListener('click', btnClickHandler);
-    hap.addEventListener('click', btnClickHandler);
 }
 
 /**
@@ -45,6 +21,7 @@ function getDbValuesOnload()
 {
     //Check food magazine for a generic ajaxhandler.
     var happiness = 0;
+    console.log("YUP");
     $.ajax({
         url:'php/getDBValues.php',
         data: {
@@ -52,8 +29,8 @@ function getDbValuesOnload()
         },
         success: function (data)
         {
-            immersiveBackground(data.happiness);
-            createSoundcloudWidget(data.happiness);
+            console.log("SUCCES");
+            writeHappinessLevel(data.happiness);
         },
         error: function ()
         {
@@ -72,12 +49,20 @@ function btnClickHandler(e)
 {
     var btn = e.target.id;
 
-    //immersiveBackground(btn);
-    btnValue(btn);
+    if(btn == "btn_submitRange")
+    {
+        var slider = document.getElementById('rangeMoodInput');
+
+        btnAddValue(slider.value);
+    }
+    else
+    {
+        btnValue(btn);
+    }
 }
 
 /**
- * add a value to the button that was clicked
+ * add a value to the button that was clicked and adjust slider
  *
  * @param element
  */
@@ -100,7 +85,12 @@ function btnValue(element)
             break;
     }
 
-    btnAddValue(btnValue);
+
+    var range = document.getElementById('rangeMoodInput');
+    var rangeText = document.getElementById('rangeMoodInputText');
+
+    range.value = btnValue * 100;
+    rangeText.value = range.value;
 }
 
 /**
@@ -110,8 +100,9 @@ function btnValue(element)
  */
 function btnAddValue(value)
 {
-    totalValue = currentValue + value;
-    totalUserAmount = currentUserAmount + 1;
+    var fixedValue = value / 100;
+    var totalValue = currentValue + fixedValue;
+    var totalUserAmount = currentUserAmount + 1;
 
     //currentValue = totalValue;
     //currentUserAmount = totalUserAmount;
@@ -138,6 +129,12 @@ function ajaxHandler(value, userAmount)
         success: function(data) {
             //console.log(data.happiness);
             immersiveBackground(data.happiness);
+            writeHappinessLevel(data.happiness);
+            //if(x == false)
+            //{
+            //    //deleteSoundcloudWidget
+            //    //createSoundcloudWidget(data.happiness);
+            //}
         },
         error: function()
         {
@@ -199,6 +196,9 @@ function pulseColors(color1, color2)
     cssRule.appendRule("0% {background:" + color1 + "}");
     cssRule.appendRule("50% {background:" + color2 + "}");
     cssRule.appendRule("100% {background:" + color1 + "}");
+
+    //Check value from DB every 10 seconds
+    setInterval(ajaxHandler(0, 0), (10 * 1000));
 }
 
 /**
@@ -235,72 +235,35 @@ function drawError()
     container.innerHTML = "There has been an error, please try again!";
 }
 
-//IGNORE THE LINES BELOW........
+function writeHappinessLevel(happiness)
+{
+    var cont = document.getElementById("currentMood");
 
+    console.log("YOU GOT AT WRITE SHIT");
+    var img = showImage(happiness);
+    cont.appendChild(img);
 
+}
 
+function showImage(happiness){
+    var img = document.createElement("img");
+    if(happiness == "happy"){
+        console.log("HAPPY");
+        img.src = "http://emojipedia-us.s3.amazonaws.com/cache/a0/38/a038e6d3f342253c5ea3c057fe37b41f.png";
+        img.alt = "BEING FUCKING HAPPY";
+    }
+    else if(happiness == "neutral") {
+        console.log("NEUTRAL");
+        img.src = "http://www.charbase.com/images/glyph/128528";
+        img.alt = "BEING FUCKING NEUTRAL";
+    }
+    else {
+        console.log("UNHAPPY");
+        img.src = "https://invigs365.files.wordpress.com/2014/08/sad-emoji.png";
+        img.alt = "BEING FUCKING UNHAPPY";
+    }
+    return img;
+}
 
-
-//
-//function clickedButton(element)
-//{
-//    var btn = element.id;
-//    var color = "white";
-//    var color2 = "grey";
-//    var change = false;
-//
-//    // alert(btn);
-//
-//    getRule();
-//
-//    if(btn == 0)
-//    {
-//        color = "#A9E2F3";
-//        color2 = "#0080FF";
-//
-//        cssRule.deleteRule("0%");
-//        cssRule.deleteRule("50%");
-//        cssRule.deleteRule("100%");
-//        cssRule.appendRule("0% {background:" + color + "}");
-//        cssRule.appendRule("50% {background:" + color2 + "}");
-//        cssRule.appendRule("100% {background:" + color + "}");
-//        var music = "audio/unhappy_1.mp3";
-//    }
-//    else if(btn == 1)
-//    {
-//        color = "#A9F5BC";
-//        color2 = "#81F781";
-//
-//        cssRule.deleteRule("0%");
-//        cssRule.deleteRule("50%");
-//        cssRule.deleteRule("100%");
-//        cssRule.appendRule("0% {background:" + color + "}");
-//        cssRule.appendRule("50% {background:" + color2 + "}");
-//        cssRule.appendRule("100% {background:" + color + "}");
-//        var music = "audio/neutral_1.mp3";
-//    }
-//    else if(btn == 2)
-//    {
-//        color = "#F4FA58";
-//        color2 ="#BEF781";
-//
-//        cssRule.deleteRule("0%");
-//        cssRule.deleteRule("50%");
-//        cssRule.deleteRule("100%");
-//        cssRule.appendRule("0% {background:" + color + "}");
-//        cssRule.appendRule("50% {background:" + color2 + "}");
-//        cssRule.appendRule("100% {background:" + color + "}");
-//        var music = "audio/happy_1.mp3";
-//    }
-//
-//
-//    var song = document.getElementById('mp3');
-//    song.src=music;
-//    var audio = document.getElementById('musicPlayer');
-//    audio.load();
-//    audio.play();
-//}
-//
-//var cssRule;
 
 
