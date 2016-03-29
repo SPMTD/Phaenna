@@ -23,7 +23,7 @@ div#errorOutput
 
 div#soundcloudWidget
 {
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 
 /*Animation per keyframe for pulsating effect*/
