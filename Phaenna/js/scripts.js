@@ -9,6 +9,7 @@ var previousColor2 = "";
 function init()
 {
     ajaxRequest(createSoundcloudWidget);
+    createCamera();
 }
 
 /**

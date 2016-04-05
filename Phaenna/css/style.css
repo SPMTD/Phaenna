@@ -217,10 +217,10 @@ img {
    max-width:100%;
 }
 
-.webcamPlaceholder {
+#webcamPlaceholder {
 	height: 30em;
 	width: 100%;
-	background-color: red;
+	/*background-color: red;*/
 	margin-bottom: 10%;
 }
 
