@@ -37,7 +37,7 @@
         <fieldset>
             <div class="animated fadeInUp delay-1s">
                 <div id="currentMood">
-                    <p>Average mood : </p>
+                    <p>Average mood</p>
                 </div>
             </div>
         </fieldset>

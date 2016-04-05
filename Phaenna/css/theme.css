@@ -6,8 +6,8 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 */
  /* reset */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
-article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure,footer, header, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0;padding:0;}
 blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
@@ -49,7 +49,7 @@ body{
 }
 .logo h1 a:hover {
 	text-decoration: none;
-	color: none;
+	/*color: none;*/
 }
 .header-bg{
 	background:#fff;
@@ -153,7 +153,7 @@ body{
 	position: absolute;
 	top: -51px;
 	right: 5px;
-	background: url(../images/nav_icon.png) 60% 60% no-repeat;
+	/*background: url(../images/nav_icon.png) 60% 60% no-repeat;*/
 	height: 32px;
 	width: 32px;
 }
@@ -213,8 +213,8 @@ a#boxclose:hover {
 	float:left;
 }
 .login_box p a.signup{
-	color:#5d5d5d;
-	font-size:0.8em; 
+	color:#FFFFFF;
+	font-size:0.8em;
     padding-right:10px;
     border-right:1px solid #888; 
 }
@@ -446,7 +446,7 @@ input:focus {
 	float:left;
 }
 .register_box p a.signup{
-	color:#5d5d5d;
+	color: #ffffff;
 	font-size:0.8em; 
     padding-right:10px;
     border-right:1px solid #888; 
@@ -476,24 +476,24 @@ a.popup-with-zoom-anim.jp-video-play-icon img {
 	height:64px;
 	display:inline-block;
 }
-.icon1 span{
-	background: url(../images/icons.png) no-repeat -6px 0px;
-}
-.icon2 span{
-	background: url(../images/icons.png) no-repeat -328px 0px;
-}
-.icon3 span{
-	background: url(../images/icons.png) no-repeat -268px 0px;
-}
-.icon4 span{
-	background: url(../images/icons.png) no-repeat -74px 0px;
-}
-.icon5 span{
-	background: url(../images/icons.png) no-repeat -140px 0px;
-}
-.icon6 span{
-	background: url(../images/icons.png) no-repeat -204px 0px;
-}
+/*.icon1 span{*/
+	/*background: url(../images/icons.png) no-repeat -6px 0px;*/
+/*}*/
+/*.icon2 span{*/
+	/*background: url(../images/icons.png) no-repeat -328px 0px;*/
+/*}*/
+/*.icon3 span{*/
+	/*background: url(../images/icons.png) no-repeat -268px 0px;*/
+/*}*/
+/*.icon4 span{*/
+	/*background: url(../images/icons.png) no-repeat -74px 0px;*/
+/*}*/
+/*.icon5 span{*/
+	/*background: url(../images/icons.png) no-repeat -140px 0px;*/
+/*}*/
+/*.icon6 span{*/
+	/*background: url(../images/icons.png) no-repeat -204px 0px;*/
+/*}*/
 .feature-grid-right{
 	width:84%;
 	float:right;
@@ -552,7 +552,7 @@ div.feature-grid-right p {
 	height: 44px;
 	border: none;
 	text-indent: 100%;
-	background: url(../images/top_move.png) no-repeat right top;
+	/*background: url(../images/top_move.png) no-repeat right top;*/
 }
 /*--- pricing ---*/
 div#prices h3 {
@@ -583,7 +583,7 @@ div#prices p {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-o-border-radius: 5px;
-	-webkit-border-radius: 5p;
+	-webkit-border-radius: 5px;
 }
 .span3 i:hover{
 	background:#49CBCD;
@@ -603,7 +603,7 @@ div.faq-grid h5 {
 div.faq-grid p {
 	font-size: 1em;
 	font-family: 'Open Sans', sans-serif;
-	color: #3D3D3D;
+	color: #FFFFFF;
 	line-height: 1.9em;
 	text-align:left;
 	font-weight: 300;
@@ -1029,4 +1029,3 @@ div.faq-grid p {
 	textarea {
 		width: 72%;
 	}
-}

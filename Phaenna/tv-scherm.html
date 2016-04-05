@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Phaenna Prototype 2.0</title>
-<!--ICON-->
     <link rel="icon" href="img/PhaennaLogo.png" type="image/png">
     <link rel="shortcut icon" href="img/PhaennaLogo.png" type="img/x-icon">
+
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
@@ -16,22 +17,37 @@
     <link href="css/responsive.css" rel="stylesheet" type="text/css">
     <link href="css/animate.css" rel="stylesheet" type="text/css">
 
+    <!--[if IE]><style type="text/css">.pie {behavior:url(PIE.htc);}</style><![endif]-->
+
+
+    <![endif]-->
 </head>
 <body>
-<div style="overflow: hidden">
-<header class="header" id="header">
-<div class="container">
-<a class="link animated fadeInUp delay-1s" href="index.php">Home</a>
+<div class="col-sm-6">
+    <h1>PLAYLIST</h1>
+    <div id="soundcloudWidget"> </div>
+    <div id="soundcloudSong"></div>
+    <div id="currentMood">
+        <h3>Average mood : </h3>
+    </div>
+</div>
+<div class="col-sm-6">
+    <h1>WEBCAM / INPUT</h1>
+    <div class="webcamPlaceholder">
 
-<div id = "errorOutput"></div>
-    <div id="submitResponse"></div>
+    </div>
+    <div id = "errorOutput"></div>
+    <div id="submitResponse">
+        <h2 id="submitResponseText"></h2>
+    </div>
+
+
 
     <form oninput="amount.value=rangeMoodInput.value" class="animated fadeInDown delay-05s">
-        <input type="range" id = "rangeMoodInput" name="rangeMoodInput" min="0" max="100"/>
+        <input type="range" id = "rangeMoodInput" name="rangeMoodInput" min="0" max="100">
         </br>
-        <p>Result:</p><output id = "rangeMoodInputText" name="amount" for="rangeMoodInput"><p>50</output>%</p><p>happy</p>
+        <p>Result:<output id = "rangeMoodInputText" name="amount" for="rangeMoodInput">50</output>% happy</p>
     </form>
-    </br>
 
     <button class="link animated fadeInUp delay-05s" id = "btn_unhappy" name = "btn_unhappy">Unhappy</button>
     <button class="link animated fadeInUp delay-05s" id = "btn_neutral" name = "btn_neutral">Neutral</button>
@@ -40,16 +56,14 @@
     <button class="link animated fadeInUp delay-05s" id = "btn_submitRange">Submit</button>
 
 </div>
-</header>
 </div>
 <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+<!--SOUNDCLOUD-->
+<script type="text/javascript" src="js/soundcloud.js"></script>
+<script type = "text/javascript" src = "js/scripts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
 
-<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
-<script type = "text/javascript" src = "js/uploadData.js"></script>
-
-
-<!--[if IE]><style type="text/css">.pie {behavior:url(PIE.htc);}</style><![endif]-->
 
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/jquery-scrolltofixed.js"></script>
@@ -58,12 +72,5 @@
 <script type="text/javascript" src="js/wow.js"></script>
 <script type="text/javascript" src="js/classie.js"></script>
 
-
-<!--[if lt IE 9]>
-<script src="js/respond-1.1.0.min.js"></script>
-<script src="js/html5shiv.js"></script>
-<script src="js/html5element.js"></script>
-<![endif]-->
 </body>
 </html>
-

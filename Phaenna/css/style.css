@@ -48,7 +48,7 @@ a, a:hover, a:active{ outline:0 !important}
 /* Primary Styles
 ---------------------------------*/
 body {
-	background:url(../img/pw_maze_black_2X.png) left top repeat;
+	background:url(../img/hex-677521_960_720.jpg) left top repeat;
 	font-family: 'Open Sans', sans-serif;
 	font-size:14px;
 	font-weight:normal;
@@ -57,7 +57,7 @@ body {
 }
 h2{
 	font-size:34px;
-	color:#222222;
+	color: #ffffff;;
 	font-family: 'Montserrat', sans-serif;
 	font-weight:700;
 	letter-spacing: -1px;
@@ -67,7 +67,7 @@ h2{
 }
 h3{
 	font-family: 'Montserrat', sans-serif;
-	color:#222222;
+	color: #ffffff;
 	font-size:16px;
 	margin:0 0 5px 0;
 	text-transform:uppercase;
@@ -107,11 +107,16 @@ p{
 	color:#fff;
 }
 
+.header p {
+	color: #FFFFFF;
+	font-size: 30px;
+}
+
 #currentMood{
 	max-height: 10%;
 	max-width: 10%;
 	display: inline-block;
-	margin-top: -5%;
+	margin-top: 1em;
 	margin-bottom: 3%;
 }
 
@@ -183,7 +188,8 @@ div#errorOutput
 
 div#soundcloudWidget
 {
-	pointer-events: none;
+	/*pointer-events: none;*/
+	margin-bottom: 10%;
 }
 
 input {
@@ -211,6 +217,16 @@ img {
    max-width:100%;
 }
 
+.webcamPlaceholder {
+	height: 30em;
+	width: 100%;
+	background-color: red;
+	margin-bottom: 10%;
+}
+
+#submitResponse {
+	margin-bottom:1em;
+}
 
 /* Animation Timers
 ---------------------------------*/
