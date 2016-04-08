@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Phaenna Prototype 2.0</title>
+<!--ICON-->
+    <link rel="icon" href="img/PhaennaLogo.png" type="image/png">
+    <link rel="shortcut icon" href="img/PhaennaLogo.png" type="img/x-icon">
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div style="overflow: hidden">
+<header class="header" id="header">
+<div class="container">
+<a class="link animated fadeInUp delay-1s" href="index.php">Home</a>
+
+<div id = "errorOutput"></div>
+    <p id="submitResponseText"></p>
+    </br>
+    <form oninput="amount.value=rangeMoodInput.value" class="animated fadeInDown delay-05s">
+        <input type="range" id = "rangeMoodInput" name="rangeMoodInput" min="0" max="100"/>
+        </br>
+        <p>Result:</p><output id = "rangeMoodInputText" name="amount" for="rangeMoodInput">50</output>%<p>happy</p>
+    </form>
+    </br>
+
+    <button class="link animated fadeInUp delay-05s" id = "btn_unhappy" name = "btn_unhappy">Unhappy</button>
+    <button class="link animated fadeInUp delay-05s" id = "btn_neutral" name = "btn_neutral">Neutral</button>
+    <button class="link animated fadeInUp delay-05s" id = "btn_happy" name = "btn_happy">Happy</button>
+    </br>
+    <button class="link animated fadeInUp delay-05s" id = "btn_submitRange">Submit</button>
+
+</div>
+</header>
+</div>
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+
+<script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<script type = "text/javascript" src = "js/uploadData.js"></script>
+
+
+<!--[if IE]><style type="text/css">.pie {behavior:url(PIE.htc);}</style><![endif]-->
+
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery-scrolltofixed.js"></script>
+<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="js/jquery.isotope.js"></script>
+<script type="text/javascript" src="js/wow.js"></script>
+<script type="text/javascript" src="js/classie.js"></script>
+
+
+<!--[if lt IE 9]>
+<script src="js/respond-1.1.0.min.js"></script>
+<script src="js/html5shiv.js"></script>
+<script src="js/html5element.js"></script>
+<![endif]-->
+</body>
+</html>
+
