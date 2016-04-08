@@ -1,4 +1,8 @@
-window.onload = init();
+/**
+ * @author Thierry de Wit
+ */
+
+window.addEventListener('load', init);
 var currentValue = 0;
 var currentUserAmount = 0;
 
